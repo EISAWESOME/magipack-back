@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-const baseUrl = "http://fr.dofus.dofapi.fr";
+const baseUrl = "https://fr.dofus.dofapi.fr";
 
 app.post('/dofapi/equip', (req, res) => {
 
@@ -45,7 +45,7 @@ app.post('/dofapi/equip', (req, res) => {
 
 app.post('/ankama/imgB64', (req, res) => {
 
-    let providedUrl = req.body.imgUrl.replace("https://s.ankama.com/www/", "http://");
+    let providedUrl = req.body.imgUrl.replace("https://s.ankama.com/www/", "https://");
 
     https.get(providedUrl, (resp) => {
         resp.setEncoding('base64');
