@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const http = require('http');
+const https = require('https');
 
 
 const cors = require('cors');
@@ -46,7 +47,7 @@ app.post('/ankama/imgB64', (req, res) => {
 
     let providedUrl = req.body.imgUrl.replace("https://s.ankama.com/www/", "http://");
 
-    http.get(providedUrl, (resp) => {
+    https.get(providedUrl, (resp) => {
         resp.setEncoding('base64');
         let body = "data:" + resp.headers["content-type"] + ";base64,";
         resp.on('data', (data) => { body += data});
