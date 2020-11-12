@@ -24,12 +24,16 @@ app.post('/dofapi/equip', (req, res) => {
     let response = null;
     let types = req.body && req.body.Types ? req.body.Types : [];
 
+    let startingLevel = req.body && req.body.StartingLevel ? req.body.StartingLevel : 0;
+
     let endpoint = types.some(t => t ==="Dague" || t === "Baguette") ? "/weapons" : "/equipments";
 
     let apiUrl = baseUrl + endpoint;
 
 
-    axios.get(apiUrl + `?filter={"where":{"type":{"inq":${JSON.stringify(types)}}, "level" : {"lte" : 199}},"fields":["name","level","statistics", "imgUrl"],"order":["level", "ASC"], "limit" : 9999}`)
+    
+
+    axios.get(apiUrl + `?filter={"where":{"type":{"inq":${JSON.stringify(types)}},"and":[{"level":{"lte":199}},{"level":{"gte":${startingLevel}}}]},"fields":["name","level","statistics","imgUrl"],"order":["level","ASC"],"limit":9999}`)
         .then((equip) => {
             response = equip.data;
         })
